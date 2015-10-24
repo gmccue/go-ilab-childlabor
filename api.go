@@ -1,3 +1,5 @@
+// Package laborstats provides programmatic access to the ILAB Sweat & Toil
+// API (http://developer.dol.gov/others/sweat-and-toil/).
 package laborstats
 
 import (
@@ -33,11 +35,14 @@ var (
 	laborStatsAPIError   = errors.New("The API request returned an error.")
 	invalidFilterError   = errors.New("Invalid query parameter provided.")
 	invalidResponseError = errors.New("The HTTP request failed.")
-	validFilterKeys      = []string{"limit", "start_date", "end_date", "order"}
+
+	// validFiltersKeys holds an array of currently available query filters.
+	validFilterKeys = []string{"limit", "start_date", "end_date", "order"}
 )
 
 type queryFilters map[string]string
 
+// APIError holds error information returned from an API request.
 type APIError struct {
 	status  bool   `json:"status"`
 	Message string `json:"error"`
@@ -51,7 +56,7 @@ type laborStatsAPI struct {
 	filters     queryFilters
 }
 
-type queryBuilder interface {
+type queryRunner interface {
 	sendRequest() error
 	unmarshalData() error
 }
@@ -59,6 +64,7 @@ type queryBuilder interface {
 // lsbool is a custom boolean type for unmarshaling JSON
 type lsbool bool
 
+// NewLaborStatsAPI configures and returns a new API instance.
 func NewLaborStatsAPI(secretKey string) *laborStatsAPI {
 	return &laborStatsAPI{
 		filters:   make(queryFilters),
@@ -66,6 +72,8 @@ func NewLaborStatsAPI(secretKey string) *laborStatsAPI {
 	}
 }
 
+// QueryAdvancementLevel submits an API request against the AdvancementLevel
+// endpoint.
 func (api *laborStatsAPI) QueryAdvancementLevel() ([]advancementLevel, error) {
 	a := advancementLevelAPI{
 		Debug:     api.Debug,
@@ -85,6 +93,7 @@ func (api *laborStatsAPI) QueryAdvancementLevel() ([]advancementLevel, error) {
 	return res, nil
 }
 
+// QueryCountry submits an API request against the Country endpoint.
 func (api *laborStatsAPI) QueryCountry() ([]country, error) {
 	a := countryAPI{
 		Debug:     api.Debug,
@@ -104,6 +113,7 @@ func (api *laborStatsAPI) QueryCountry() ([]country, error) {
 	return res, nil
 }
 
+// QueryCountryGoods submits an API request against the Country Goods endpoint.
 func (api *laborStatsAPI) QueryCountryGoods() ([]countryGood, error) {
 	a := countryGoodsAPI{
 		Debug:     api.Debug,
@@ -124,6 +134,8 @@ func (api *laborStatsAPI) QueryCountryGoods() ([]countryGood, error) {
 
 }
 
+// QueryCountryProfile submits an API request against the Country Profile
+// endpoint.
 func (api *laborStatsAPI) QueryCountryProfile() ([]countryProfile, error) {
 	a := countryProfileAPI{
 		Debug:     api.Debug,
@@ -144,6 +156,8 @@ func (api *laborStatsAPI) QueryCountryProfile() ([]countryProfile, error) {
 
 }
 
+// QueryCountryStats submits an API request against the Country Statistics
+// endpoint.
 func (api *laborStatsAPI) QueryCountryStats() ([]countryStat, error) {
 	a := countryStatsAPI{
 		Debug:     api.Debug,
@@ -163,6 +177,7 @@ func (api *laborStatsAPI) QueryCountryStats() ([]countryStat, error) {
 	return res, nil
 }
 
+// QueryGood submits an API request against the "Good" endpoint.
 func (api *laborStatsAPI) QueryGood() ([]good, error) {
 	a := goodAPI{
 		Debug:     api.Debug,
@@ -182,6 +197,7 @@ func (api *laborStatsAPI) QueryGood() ([]good, error) {
 	return res, nil
 }
 
+// QueryRegion submits an API request against the Region endpoint.
 func (api *laborStatsAPI) QueryRegion() ([]region, error) {
 	a := regionAPI{
 		Debug:     api.Debug,
@@ -202,6 +218,7 @@ func (api *laborStatsAPI) QueryRegion() ([]region, error) {
 
 }
 
+// QuerySector submits an API request against the Sector endpoint.
 func (api *laborStatsAPI) QuerySector() ([]sector, error) {
 	a := sectorAPI{
 		Debug:     api.Debug,
@@ -222,6 +239,8 @@ func (api *laborStatsAPI) QuerySector() ([]sector, error) {
 
 }
 
+// QuerySuggestedActionArea submits an API request against the Suggested Action
+// Area endpoint.
 func (api *laborStatsAPI) QuerySuggestedActionArea() ([]suggestedActionArea, error) {
 	a := suggestedActionAreaAPI{
 		Debug:     api.Debug,
@@ -242,6 +261,8 @@ func (api *laborStatsAPI) QuerySuggestedActionArea() ([]suggestedActionArea, err
 
 }
 
+// QuerySuggestedActions submits an API request against the Suggested Actions
+// endpoint.
 func (api *laborStatsAPI) QuerySuggestedActions() ([]suggestedAction, error) {
 	a := suggestedActionAPI{
 		Debug:     api.Debug,
@@ -261,6 +282,9 @@ func (api *laborStatsAPI) QuerySuggestedActions() ([]suggestedAction, error) {
 	return res, nil
 }
 
+// AddFilter adds a filter parameter to the API request.
+// The currently available filters are "limit", "start_date", "end_date",
+// and "order".
 func (api *laborStatsAPI) AddFilter(filterName string, filterValue string) error {
 	if !filterIsValid(filterName) {
 		return invalidFilterError
