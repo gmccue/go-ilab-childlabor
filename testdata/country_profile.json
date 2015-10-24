@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "country_id": 1,
+        "profile_year": 2014,
+        "advancement_id": 1,
+        "description": "A general description of a country profile."
+    },
+    {
+        "id": 2,
+        "country_id": 2,
+        "profile_year": 2014,
+        "advancement_id": 1,
+        "description": "Another general description of a country profile."
+    }
+]

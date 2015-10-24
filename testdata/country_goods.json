@@ -1,0 +1,16 @@
+[
+    {
+        "country_profile_id": 1,
+        "good_id": 1,
+        "child_Labor": 0,
+        "forced_labor": 0,
+        "forced_child_labor": 0
+    },
+    {
+        "country_profile_id": 1,
+        "good_id": 2,
+        "child_Labor": 0,
+        "forced_labor": 0,
+        "forced_child_labor": 0
+    }
+]

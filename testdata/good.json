@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "name": "Bricks",
+        "sector_id": 1
+    },
+    {
+        "id": 2,
+        "name": "Carpets",
+        "sector_id": 1
+    }
+]

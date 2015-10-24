@@ -1,0 +1,36 @@
+[
+    {
+        "country_profile_id": 1,
+        "cws_age_range": "5-14",
+        "cws_total_percentage_of_workin": 7.5,
+        "cws_total_working_population": 673949,
+        "cws_agriculture": 0,
+        "cws_services": 0,
+        "cws_industry": 0,
+        "esas_year": "2010-11",
+        "esas_age_range": "5-14",
+        "esas_percentage": 41.8,
+        "cwas_year": "2010-11",
+        "cwas_age_range": "7-14",
+        "cwas_total": 4.6,
+        "upcr_year": "0000",
+        "upcr_rate": 0
+    },
+    {
+        "country_profile_id": 2,
+        "cws_age_range": "5-14",
+        "cws_total_percentage_of_workin": 4.6,
+        "cws_total_working_population": 23665,
+        "cws_agriculture": 87.5,
+        "cws_services": 9.6,
+        "cws_industry": 2.9,
+        "esas_year": "2010",
+        "esas_age_range": "5-14",
+        "esas_percentage": 92.5,
+        "cwas_year": "2010",
+        "cwas_age_range": "7-14",
+        "cwas_total": 5.2,
+        "upcr_year": "0000",
+        "upcr_rate": 0
+    }
+]

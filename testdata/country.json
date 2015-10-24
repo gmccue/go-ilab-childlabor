@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "name": "Country One",
+        "region_id": 1,
+        "iso2": "C1",
+        "iso3": "CT1"
+    },
+    {
+        "id": 2,
+        "name": "Country Two",
+        "region_id": 2,
+        "iso2": "C2",
+        "iso3": "CT2"
+    }
+]

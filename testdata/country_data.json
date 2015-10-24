@@ -1,0 +1,33 @@
+[
+    {
+        "country_profile_id": 1,
+        "c_138_ratified": "Yes",
+        "c_182_ratified": "Yes",
+        "convention_on_the_rights_of_th": "Yes",
+        "crc_commercial_sexual_exploita": "Yes",
+        "crc_armed_conflict_ratified": "Yes",
+        "palermo_ratified": "Yes",
+        "minimum_age_for_work_establish": "Yes",
+        "minimum_age_for_work": "15",
+        "minimum_age_for_hazardous_work_established": "Yes",
+        "minimum_age_for_hazardous_work": "18",
+        "compulsory_education_age_estab": "Yes",
+        "minimum_age_for_compulsory_edu": "15",
+        "free_public_education_establis": "Yes"
+    },
+    {
+        "country_profile_id": 2,
+        "c_138_ratified": "Yes",
+        "c_182_ratified": "Yes",
+        "convention_on_the_rights_of_th": "Yes",
+        "crc_commercial_sexual_exploita": "Yes",
+        "crc_armed_conflict_ratified": "Yes",
+        "palermo_ratified": "Yes",
+        "minimum_age_for_work_establish": "Yes",
+        "minimum_age_for_work": "16",
+        "minimum_age_for_hazardous_work": "18",
+        "compulsory_education_age_estab": "Yes",
+        "minimum_age_for_compulsory_edu": "16",
+        "free_public_education_establis": "Yes"
+    }
+]

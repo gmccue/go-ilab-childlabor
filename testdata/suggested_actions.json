@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "country_profile_id": 1,
+        "area_id": 1,
+        "name": "Create better laws",
+        "year": "2013 - 2014"
+    },
+    {
+        "id": 2,
+        "country_profile_id": 1,
+        "area_id": 1,
+        "name": "Ensure that law clearly prohibits the production, distribution, benefiting from, and possession of child pornography.",
+        "year": "2014"
+    }
+]
