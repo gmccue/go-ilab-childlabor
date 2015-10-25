@@ -5,15 +5,15 @@ import "encoding/json"
 // Request path for Region data.
 const regionURI = "childlabor_reg"
 
-type regionAPI laborStatsAPI
+type RegionAPI LaborStatsAPI
 
-type region struct {
+type Region struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
 
-func (api *regionAPI) sendRequest() error {
-	api.endpoint = buildEndpoint(regionURI, api.filters)
+func (api *RegionAPI) sendRequest() error {
+	api.endpoint = buildEndpoint(regionURI, api.Filters)
 
 	rawResponse, err := doRequest(api.endpoint.String(), api.SecretKey, api.Debug)
 	if err != nil {
@@ -25,8 +25,8 @@ func (api *regionAPI) sendRequest() error {
 	return nil
 }
 
-func (api *regionAPI) unmarshalData() ([]region, error) {
-	var regions []region
+func (api *RegionAPI) unmarshalData() ([]Region, error) {
+	var regions []Region
 
 	err := json.Unmarshal(api.RawResponse, &regions)
 	if err != nil {

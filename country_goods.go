@@ -5,9 +5,9 @@ import "encoding/json"
 // Request path for Country Goods data.
 const countryGoodsURI = "childlabor_cty_goo"
 
-type countryGoodsAPI laborStatsAPI
+type CountryGoodsAPI LaborStatsAPI
 
-type countryGood struct {
+type CountryGood struct {
 	CountryProfileID int    `json:"country_profile_id,omitempty"`
 	GoodID           int    `json:"good_id,omitempty"`
 	ChildLabor       lsbool `json:"child_Labor,omitempty"`
@@ -15,8 +15,8 @@ type countryGood struct {
 	ForcedChildLabor lsbool `json:"forced_child_labor,omitempty"`
 }
 
-func (api *countryGoodsAPI) sendRequest() error {
-	api.endpoint = buildEndpoint(countryGoodsURI, api.filters)
+func (api *CountryGoodsAPI) sendRequest() error {
+	api.endpoint = buildEndpoint(countryGoodsURI, api.Filters)
 
 	rawResponse, err := doRequest(api.endpoint.String(), api.SecretKey, api.Debug)
 	if err != nil {
@@ -28,8 +28,8 @@ func (api *countryGoodsAPI) sendRequest() error {
 	return nil
 }
 
-func (api *countryGoodsAPI) unmarshalData() ([]countryGood, error) {
-	var countryGoods []countryGood
+func (api *CountryGoodsAPI) unmarshalData() ([]CountryGood, error) {
+	var countryGoods []CountryGood
 
 	err := json.Unmarshal(api.RawResponse, &countryGoods)
 	if err != nil {

@@ -5,15 +5,15 @@ import "encoding/json"
 // Request path for Sector data.
 const sectorURI = "childlabor_sec"
 
-type sectorAPI laborStatsAPI
+type SectorAPI LaborStatsAPI
 
-type sector struct {
+type Sector struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
 
-func (api *sectorAPI) sendRequest() error {
-	api.endpoint = buildEndpoint(sectorURI, api.filters)
+func (api *SectorAPI) sendRequest() error {
+	api.endpoint = buildEndpoint(sectorURI, api.Filters)
 
 	rawResponse, err := doRequest(api.endpoint.String(), api.SecretKey, api.Debug)
 	if err != nil {
@@ -25,8 +25,8 @@ func (api *sectorAPI) sendRequest() error {
 	return nil
 }
 
-func (api *sectorAPI) unmarshalData() ([]sector, error) {
-	var sectors []sector
+func (api *SectorAPI) unmarshalData() ([]Sector, error) {
+	var sectors []Sector
 
 	err := json.Unmarshal(api.RawResponse, &sectors)
 	if err != nil {

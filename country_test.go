@@ -8,7 +8,7 @@ func TestCountryUnmarshalData(t *testing.T) {
 		t.Error(err)
 	}
 
-	api := countryAPI{}
+	api := CountryAPI{}
 	api.RawResponse = dataMock
 
 	result, err := api.unmarshalData()

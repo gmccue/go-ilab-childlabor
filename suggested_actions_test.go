@@ -8,7 +8,7 @@ func TestSuggestedActionsUnmarshalData(t *testing.T) {
 		t.Error(err)
 	}
 
-	api := suggestedActionAPI{}
+	api := SuggestedActionAPI{}
 	api.RawResponse = dataMock
 
 	result, err := api.unmarshalData()

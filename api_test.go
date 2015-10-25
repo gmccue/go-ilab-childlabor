@@ -18,12 +18,12 @@ func getDataMock(mockPath string) ([]byte, error) {
 }
 
 func TestAddFilter(t *testing.T) {
-	a := laborStatsAPI{}
+	a := LaborStatsAPI{}
 	testPath := "myPath"
 
 	a.AddFilter("limit", "10")
 
-	endpoint := buildEndpoint(testPath, a.filters)
+	endpoint := buildEndpoint(testPath, a.Filters)
 
 	if endpoint.String() != fmt.Sprintf("%s://%s/%s/%s/%s/%s", apiScheme, apiHost, apiPath, testPath, "limit", "10") {
 		t.Error("Invalid endpoint built: ", endpoint.String())

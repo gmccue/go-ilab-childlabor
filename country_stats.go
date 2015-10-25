@@ -5,9 +5,9 @@ import "encoding/json"
 // Request path for Country Statistics data.
 const countryStatsURI = "childlabor_sta"
 
-type countryStatsAPI laborStatsAPI
+type CountryStatsAPI LaborStatsAPI
 
-type countryStat struct {
+type CountryStat struct {
 	CountryProfileID  int     `json:"country_profile_id"`
 	CWAgeRange        string  `json:"cws_age_range,omitempty"`
 	CWPercent         float64 `json:"cws_total_percentage_of_workin,omitempty"`
@@ -25,8 +25,8 @@ type countryStat struct {
 	PCRRate           float64 `json:"upcr_rate,omitempty"`
 }
 
-func (api *countryStatsAPI) sendRequest() error {
-	api.endpoint = buildEndpoint(countryStatsURI, api.filters)
+func (api *CountryStatsAPI) sendRequest() error {
+	api.endpoint = buildEndpoint(countryStatsURI, api.Filters)
 
 	rawResponse, err := doRequest(api.endpoint.String(), api.SecretKey, api.Debug)
 	if err != nil {
@@ -38,8 +38,8 @@ func (api *countryStatsAPI) sendRequest() error {
 	return nil
 }
 
-func (api *countryStatsAPI) unmarshalData() ([]countryStat, error) {
-	var countryStats []countryStat
+func (api *CountryStatsAPI) unmarshalData() ([]CountryStat, error) {
+	var countryStats []CountryStat
 
 	err := json.Unmarshal(api.RawResponse, &countryStats)
 	if err != nil {

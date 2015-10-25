@@ -8,7 +8,7 @@ func TestSectorUnmarshalData(t *testing.T) {
 		t.Error(err)
 	}
 
-	api := sectorAPI{}
+	api := SectorAPI{}
 	api.RawResponse = dataMock
 
 	result, err := api.unmarshalData()

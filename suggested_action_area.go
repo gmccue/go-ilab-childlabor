@@ -5,15 +5,15 @@ import "encoding/json"
 // Request path for Suggested Action data.
 const suggestedActionAreaURI = "childlabor_actionarea"
 
-type suggestedActionAreaAPI laborStatsAPI
+type SuggestedActionAreaAPI LaborStatsAPI
 
-type suggestedActionArea struct {
+type SuggestedActionArea struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
 
-func (api *suggestedActionAreaAPI) sendRequest() error {
-	api.endpoint = buildEndpoint(suggestedActionAreaURI, api.filters)
+func (api *SuggestedActionAreaAPI) sendRequest() error {
+	api.endpoint = buildEndpoint(suggestedActionAreaURI, api.Filters)
 
 	rawResponse, err := doRequest(api.endpoint.String(), api.SecretKey, api.Debug)
 	if err != nil {
@@ -25,8 +25,8 @@ func (api *suggestedActionAreaAPI) sendRequest() error {
 	return nil
 }
 
-func (api *suggestedActionAreaAPI) unmarshalData() ([]suggestedActionArea, error) {
-	var suggestedActionAreas []suggestedActionArea
+func (api *SuggestedActionAreaAPI) unmarshalData() ([]SuggestedActionArea, error) {
+	var suggestedActionAreas []SuggestedActionArea
 
 	err := json.Unmarshal(api.RawResponse, &suggestedActionAreas)
 	if err != nil {

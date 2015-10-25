@@ -8,7 +8,7 @@ func TestAdvLvlUnmarshalData(t *testing.T) {
 		t.Error(err)
 	}
 
-	api := advancementLevelAPI{}
+	api := AdvancementLevelAPI{}
 	api.RawResponse = dataMock
 
 	result, err := api.unmarshalData()

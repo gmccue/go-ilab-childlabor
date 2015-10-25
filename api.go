@@ -18,29 +18,20 @@ const (
 	apiHost   = "data.dol.gov"
 	apiPath   = "get"
 
-	// Request path to designate a date filter.
-	dateFilterIndicator = "date_column"
-
-	// Request path to designate a limit filter.
-	limitFilterIndicator = "limit"
-
-	// Request path to designate an order filter
-	orderFilterIndicator = "orderby"
-
 	// Custom request header containing the API secret key
 	secretKeyHeader = "X-API-KEY"
 )
 
 var (
-	laborStatsAPIError   = errors.New("The API request returned an error.")
+	LaborStatsAPIError   = errors.New("The API request returned an error.")
 	invalidFilterError   = errors.New("Invalid query parameter provided.")
 	invalidResponseError = errors.New("The HTTP request failed.")
 
 	// validFiltersKeys holds an array of currently available query filters.
-	validFilterKeys = []string{"limit", "start_date", "end_date", "order"}
+	validFilterKeys = []string{"limit", "date_column", "start_date", "end_date", "order"}
 )
 
-type queryFilters map[string]string
+type QueryFilters map[string]string
 
 // APIError holds error information returned from an API request.
 type APIError struct {
@@ -48,15 +39,15 @@ type APIError struct {
 	Message string `json:"error"`
 }
 
-type laborStatsAPI struct {
+type LaborStatsAPI struct {
 	Debug       bool
+	Filters     QueryFilters
 	RawResponse []byte
 	SecretKey   string
 	endpoint    *url.URL
-	filters     queryFilters
 }
 
-type queryRunner interface {
+type QueryRunner interface {
 	sendRequest() error
 	unmarshalData() error
 }
@@ -65,17 +56,17 @@ type queryRunner interface {
 type lsbool bool
 
 // NewLaborStatsAPI configures and returns a new API instance.
-func NewLaborStatsAPI(secretKey string) *laborStatsAPI {
-	return &laborStatsAPI{
-		filters:   make(queryFilters),
+func NewLaborStatsAPI(secretKey string) *LaborStatsAPI {
+	return &LaborStatsAPI{
+		Filters:   make(QueryFilters),
 		SecretKey: secretKey,
 	}
 }
 
 // QueryAdvancementLevel submits an API request against the AdvancementLevel
 // endpoint.
-func (api *laborStatsAPI) QueryAdvancementLevel() ([]advancementLevel, error) {
-	a := advancementLevelAPI{
+func (api *LaborStatsAPI) QueryAdvancementLevel() ([]AdvancementLevel, error) {
+	a := AdvancementLevelAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -94,8 +85,8 @@ func (api *laborStatsAPI) QueryAdvancementLevel() ([]advancementLevel, error) {
 }
 
 // QueryCountry submits an API request against the Country endpoint.
-func (api *laborStatsAPI) QueryCountry() ([]country, error) {
-	a := countryAPI{
+func (api *LaborStatsAPI) QueryCountry() ([]Country, error) {
+	a := CountryAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -114,8 +105,8 @@ func (api *laborStatsAPI) QueryCountry() ([]country, error) {
 }
 
 // QueryCountryGoods submits an API request against the Country Goods endpoint.
-func (api *laborStatsAPI) QueryCountryGoods() ([]countryGood, error) {
-	a := countryGoodsAPI{
+func (api *LaborStatsAPI) QueryCountryGoods() ([]CountryGood, error) {
+	a := CountryGoodsAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -136,8 +127,8 @@ func (api *laborStatsAPI) QueryCountryGoods() ([]countryGood, error) {
 
 // QueryCountryProfile submits an API request against the Country Profile
 // endpoint.
-func (api *laborStatsAPI) QueryCountryProfile() ([]countryProfile, error) {
-	a := countryProfileAPI{
+func (api *LaborStatsAPI) QueryCountryProfile() ([]CountryProfile, error) {
+	a := CountryProfileAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -158,8 +149,8 @@ func (api *laborStatsAPI) QueryCountryProfile() ([]countryProfile, error) {
 
 // QueryCountryStats submits an API request against the Country Statistics
 // endpoint.
-func (api *laborStatsAPI) QueryCountryStats() ([]countryStat, error) {
-	a := countryStatsAPI{
+func (api *LaborStatsAPI) QueryCountryStats() ([]CountryStat, error) {
+	a := CountryStatsAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -178,8 +169,8 @@ func (api *laborStatsAPI) QueryCountryStats() ([]countryStat, error) {
 }
 
 // QueryGood submits an API request against the "Good" endpoint.
-func (api *laborStatsAPI) QueryGood() ([]good, error) {
-	a := goodAPI{
+func (api *LaborStatsAPI) QueryGood() ([]Good, error) {
+	a := GoodAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -198,8 +189,8 @@ func (api *laborStatsAPI) QueryGood() ([]good, error) {
 }
 
 // QueryRegion submits an API request against the Region endpoint.
-func (api *laborStatsAPI) QueryRegion() ([]region, error) {
-	a := regionAPI{
+func (api *LaborStatsAPI) QueryRegion() ([]Region, error) {
+	a := RegionAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -219,8 +210,8 @@ func (api *laborStatsAPI) QueryRegion() ([]region, error) {
 }
 
 // QuerySector submits an API request against the Sector endpoint.
-func (api *laborStatsAPI) QuerySector() ([]sector, error) {
-	a := sectorAPI{
+func (api *LaborStatsAPI) QuerySector() ([]Sector, error) {
+	a := SectorAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -241,8 +232,8 @@ func (api *laborStatsAPI) QuerySector() ([]sector, error) {
 
 // QuerySuggestedActionArea submits an API request against the Suggested Action
 // Area endpoint.
-func (api *laborStatsAPI) QuerySuggestedActionArea() ([]suggestedActionArea, error) {
-	a := suggestedActionAreaAPI{
+func (api *LaborStatsAPI) QuerySuggestedActionArea() ([]SuggestedActionArea, error) {
+	a := SuggestedActionAreaAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -263,8 +254,8 @@ func (api *laborStatsAPI) QuerySuggestedActionArea() ([]suggestedActionArea, err
 
 // QuerySuggestedActions submits an API request against the Suggested Actions
 // endpoint.
-func (api *laborStatsAPI) QuerySuggestedActions() ([]suggestedAction, error) {
-	a := suggestedActionAPI{
+func (api *LaborStatsAPI) QuerySuggestedActions() ([]SuggestedAction, error) {
+	a := SuggestedActionAPI{
 		Debug:     api.Debug,
 		SecretKey: api.SecretKey,
 	}
@@ -285,16 +276,16 @@ func (api *laborStatsAPI) QuerySuggestedActions() ([]suggestedAction, error) {
 // AddFilter adds a filter parameter to the API request.
 // The currently available filters are "limit", "start_date", "end_date",
 // and "order".
-func (api *laborStatsAPI) AddFilter(filterName string, filterValue string) error {
+func (api *LaborStatsAPI) AddFilter(filterName string, filterValue string) error {
 	if !filterIsValid(filterName) {
 		return invalidFilterError
 	}
 
-	if len(api.filters) == 0 {
-		api.filters = make(queryFilters)
-		api.filters[filterName] = filterValue
+	if len(api.Filters) == 0 {
+		api.Filters = make(QueryFilters)
+		api.Filters[filterName] = filterValue
 	} else {
-		api.filters[filterName] = filterValue
+		api.Filters[filterName] = filterValue
 	}
 
 	return nil
@@ -310,7 +301,7 @@ func filterIsValid(filterKey string) bool {
 	return false
 }
 
-func buildEndpoint(path string, filterMap queryFilters) *url.URL {
+func buildEndpoint(path string, filterMap QueryFilters) *url.URL {
 	var filters []string
 
 	for key, val := range filterMap {
@@ -385,7 +376,7 @@ func unmarshalErrorResponse(b []byte) error {
 
 	err := json.Unmarshal(b, &apiErr)
 	if err == nil {
-		return fmt.Errorf("%s The error message was: %+s", laborStatsAPIError, apiErr.Message)
+		return fmt.Errorf("%s The error message was: %+s", LaborStatsAPIError, apiErr.Message)
 	}
 
 	return nil

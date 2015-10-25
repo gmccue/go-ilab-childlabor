@@ -5,15 +5,15 @@ import "encoding/json"
 // Request path for Advancement Level data.
 const advancementLevelURI = "childlabor_advlvl"
 
-type advancementLevelAPI laborStatsAPI
+type AdvancementLevelAPI LaborStatsAPI
 
-type advancementLevel struct {
+type AdvancementLevel struct {
 	ID   int    `json:"id"`
 	Name string `json:"advancement_name"`
 }
 
-func (api *advancementLevelAPI) sendRequest() error {
-	api.endpoint = buildEndpoint(advancementLevelURI, api.filters)
+func (api *AdvancementLevelAPI) sendRequest() error {
+	api.endpoint = buildEndpoint(advancementLevelURI, api.Filters)
 
 	rawResponse, err := doRequest(api.endpoint.String(), api.SecretKey, api.Debug)
 	if err != nil {
@@ -25,8 +25,8 @@ func (api *advancementLevelAPI) sendRequest() error {
 	return nil
 }
 
-func (api *advancementLevelAPI) unmarshalData() ([]advancementLevel, error) {
-	var advLvl []advancementLevel
+func (api *AdvancementLevelAPI) unmarshalData() ([]AdvancementLevel, error) {
+	var advLvl []AdvancementLevel
 
 	err := json.Unmarshal(api.RawResponse, &advLvl)
 
